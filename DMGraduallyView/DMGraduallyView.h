@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, DMGraduallyDirection)
     DMGraduallyRight,
     DMGraduallyTop,
     DMGraduallyBottom,
+    DMGraduallyCustom,
     
     DMGraduallyMax
 };
@@ -37,12 +38,18 @@ typedef NS_ENUM(NSInteger, DMGraduallyDirection)
 /**
  *  渐变颜色view
  */
-IB_DESIGNABLE
 @interface DMGraduallyView : UIView
 
-@property (nonatomic, assign) IBInspectable NSInteger direction;
-@property (nonatomic, strong) IBInspectable UIColor *beginColor;
-@property (nonatomic, strong) IBInspectable UIColor *endColor;
+@property (nonatomic, assign) DMGraduallyDirection direction;
+@property (nonatomic, strong) UIColor *beginColor;
+@property (nonatomic, strong) UIColor *endColor;
+
+/**
+ *  用于自定义
+ */
+@property (nonatomic, assign) CGPoint beginPoint;
+@property (nonatomic, assign) CGPoint endPoint;
+
 
 + (instancetype)scrollItemGraduallyViewWithDirection:(DMGraduallyDirection)direction;
 - (instancetype)initWithDirection:(DMGraduallyDirection)direction;

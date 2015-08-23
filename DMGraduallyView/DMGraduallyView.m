@@ -175,6 +175,11 @@
         startPoint = (CGPoint){0, rect.size.height};
         endPoint = (CGPoint){0, 0};
     }
+    else if (DMGraduallyCustom == self.direction)
+    {
+        startPoint = self.beginPoint;
+        endPoint = self.endPoint;
+    }
     
     CGContextDrawLinearGradient(context, gradientRef, startPoint, endPoint, 0);
     

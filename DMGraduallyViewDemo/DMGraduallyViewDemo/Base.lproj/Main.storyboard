@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
@@ -19,17 +20,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CtE-ao-wId" customClass="DMGraduallyView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="direction">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="beginColor">
-                                        <color key="value" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -44,10 +34,10 @@
                                 <exclude reference="CtE-ao-wId"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="G5j-A4-y3e"/>
                                 <exclude reference="OAk-8A-5HU"/>
                                 <exclude reference="QPz-Iy-9WE"/>
                                 <exclude reference="as6-bF-jjB"/>
-                                <exclude reference="G5j-A4-y3e"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -55,13 +45,16 @@
                                 <include reference="CtE-ao-wId"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="G5j-A4-y3e"/>
                                 <include reference="OAk-8A-5HU"/>
                                 <include reference="QPz-Iy-9WE"/>
                                 <include reference="as6-bF-jjB"/>
-                                <include reference="G5j-A4-y3e"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="m_graduallyView" destination="CtE-ao-wId" id="j0J-Zu-9xG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

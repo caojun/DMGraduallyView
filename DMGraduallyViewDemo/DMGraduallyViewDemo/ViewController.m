@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "DMGraduallyView.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet DMGraduallyView *m_graduallyView;
 
 @end
 
@@ -17,6 +20,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    self.m_graduallyView.beginColor = [UIColor colorWithRed:0x22/255.0 green:0xaa/255.0 blue:0xa3/255.0 alpha:1];
+    self.m_graduallyView.endColor = [UIColor colorWithRed:0x50/255.0 green:0x7b/255.0 blue:0xb4/255.0 alpha:1];
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    self.m_graduallyView.direction = DMGraduallyCustom;
+    self.m_graduallyView.beginPoint = CGPointMake(0, height);
+    self.m_graduallyView.endPoint = CGPointMake(width, 0);
 }
 
 - (void)didReceiveMemoryWarning {
