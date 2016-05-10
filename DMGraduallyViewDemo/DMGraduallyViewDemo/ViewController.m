@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet DMGraduallyView *m_graduallyView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *m_imageView;
 @end
 
 @implementation ViewController
@@ -30,11 +31,10 @@
     self.m_graduallyView.direction = DMGraduallyCustom;
     self.m_graduallyView.beginPoint = CGPointMake(0, height);
     self.m_graduallyView.endPoint = CGPointMake(width, 0);
+    
+    self.m_imageView.image = [self.m_graduallyView generateImage];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 @end

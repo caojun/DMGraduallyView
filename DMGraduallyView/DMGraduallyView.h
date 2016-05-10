@@ -24,6 +24,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, DMGraduallyDirection)
 {
     DMGraduallyLeft = 0,
@@ -41,8 +43,8 @@ typedef NS_ENUM(NSInteger, DMGraduallyDirection)
 @interface DMGraduallyView : UIView
 
 @property (nonatomic, assign) DMGraduallyDirection direction;
-@property (nonatomic, strong) UIColor *beginColor;
-@property (nonatomic, strong) UIColor *endColor;
+@property (nullable, nonatomic, strong) UIColor *beginColor;
+@property (nullable, nonatomic, strong) UIColor *endColor;
 
 /**
  *  用于自定义
@@ -54,4 +56,10 @@ typedef NS_ENUM(NSInteger, DMGraduallyDirection)
 + (instancetype)scrollItemGraduallyViewWithDirection:(DMGraduallyDirection)direction;
 - (instancetype)initWithDirection:(DMGraduallyDirection)direction;
 
+/// 生成图片
+- (nonnull UIImage *)generateImage;
+
 @end
+
+NS_ASSUME_NONNULL_END
+

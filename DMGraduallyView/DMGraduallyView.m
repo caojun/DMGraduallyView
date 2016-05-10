@@ -129,6 +129,12 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
+    [self drawWithRect:rect withContextRef:context];
+}
+
+- (void)drawWithRect:(CGRect)rect
+      withContextRef:(CGContextRef)context
+{
     // 绘制颜色渐变
     // 创建色彩空间对象
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
@@ -185,6 +191,22 @@
     
     // 释放渐变对象
     CGGradientRelease(gradientRef);
+}
+
+/// 生成图片
+- (nonnull UIImage *)generateImage
+{
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 1);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGRect rect = {0, 0, self.frame.size};
+    [self drawWithRect:rect withContextRef:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end
