@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "DMGraduallyView"
   s.version      = "0.0.3"
-  s.summary      = ""
+  s.summary      = "渐变的VIEW"
 
   s.description  = <<-DESC
                    A longer description of DMGraduallyView in Markdown format.
