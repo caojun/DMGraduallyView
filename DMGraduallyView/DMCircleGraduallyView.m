@@ -22,27 +22,14 @@
  SOFTWARE.
  */
 
-#import "DMGraduallyView.h"
+#import "DMCircleGraduallyView.h"
 
-@implementation DMGraduallyView
-
-@synthesize beginColor = _beginColor;
-@synthesize endColor   = _endColor;
-
-+ (instancetype)scrollItemGraduallyViewWithDirection:(DMGraduallyDirection)direction
+@implementation DMCircleGraduallyView
 {
-    return [[self alloc] initWithDirection:direction];
-}
-
-- (instancetype)initWithDirection:(DMGraduallyDirection)direction
-{
-    self = [super init];
-    if (self)
-    {
-        self.direction = direction;
-    }
-    
-    return self;
+    UIColor *_beginColor;
+    UIColor *_endColor;
+    CGFloat _beginPercent;
+    CGFloat _endPercent;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -56,7 +43,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self)
@@ -69,46 +56,72 @@
 
 - (void)defaultSetting
 {
-    self.userInteractionEnabled = NO;
-    self.backgroundColor = [UIColor clearColor];
-    self.direction = 0;
+    _beginPercent = 0.0;
+    _endPercent = 1.0;
+    
+    [self calcVar];
+}
+
+- (void)calcVar
+{
+    _colorCenter = (CGPoint){self.bounds.size.width / 2, self.bounds.size.height / 2};
+    _radius = MAX(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0) * sqrt(2);
 }
 
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
     
+    [self calcVar];
     [self setNeedsDisplay];
 }
 
-- (void)setDirection:(DMGraduallyDirection)direction
+- (void)layoutSubviews
 {
-    if (direction < DMGraduallyMax)
-    {
-        _direction = direction;
-        
-        [self setNeedsDisplay];
-    }
+    [super layoutSubviews];
+    
+    [self calcVar];
+    [self setNeedsDisplay];
 }
 
-- (UIColor *)beginColor
+- (void)setBeginColor:(UIColor * _Nullable)beginColor
+             endColor:(UIColor * _Nullable)endColor
+         beginPercent:(CGFloat)beginPercent
+           endPercent:(CGFloat)endPercent
+          colorCenter:(CGPoint)colorCenter
+               radius:(CGFloat)radius
+{
+    _beginColor = beginColor;
+    _endColor = endColor;
+    _beginPercent = beginPercent;
+    _endPercent = endPercent;
+    _colorCenter = colorCenter;
+    _radius = radius;
+    
+    [self setNeedsDisplay];
+}
+
+- (void)setBeginColor:(UIColor * _Nullable)beginColor
+             endColor:(UIColor * _Nullable)endColor
+         beginPercent:(CGFloat)beginPercent
+           endPercent:(CGFloat)endPercent
+{
+    _beginColor = beginColor;
+    _endColor = endColor;
+    _beginPercent = beginPercent;
+    _endPercent = endPercent;
+    
+    [self setNeedsDisplay];
+}
+
+- (UIColor *)startColor
 {
     if (nil == _beginColor)
     {
-        _beginColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+        _beginColor = [UIColor whiteColor];
     }
     
     return _beginColor;
-}
-
-- (UIColor *)endColor
-{
-    if (nil == _endColor)
-    {
-        _endColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-    }
-    
-    return _endColor;
 }
 
 - (void)setBeginColor:(UIColor *)beginColor
@@ -118,6 +131,16 @@
     [self setNeedsDisplay];
 }
 
+- (UIColor *)endColor
+{
+    if (nil == _endColor)
+    {
+        _endColor = [UIColor grayColor];
+    }
+    
+    return _endColor;
+}
+
 - (void)setEndColor:(UIColor *)endColor
 {
     _endColor = endColor;
@@ -125,10 +148,48 @@
     [self setNeedsDisplay];
 }
 
+- (void)setBeginPercent:(CGFloat)beginPercent
+{
+    _beginPercent = beginPercent;
+    
+    [self setNeedsDisplay];
+}
+
+- (CGFloat)beginPercent
+{
+    return _beginPercent;
+}
+
+- (void)setEndPercent:(CGFloat)endPercent
+{
+    _endPercent = endPercent;
+    
+    [self setNeedsDisplay];
+}
+
+- (CGFloat)endPercent
+{
+    return _endPercent;
+}
+
+- (void)setColorCenter:(CGPoint)colorCenter
+{
+    _colorCenter = colorCenter;
+    
+    [self setNeedsDisplay];
+}
+
+- (void)setRadius:(CGFloat)radius
+{
+    _radius = radius;
+    
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
+
     [self drawWithRect:rect withContextRef:context];
 }
 
@@ -138,15 +199,15 @@
     // 绘制颜色渐变
     // 创建色彩空间对象
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-    CGColorRef beginColor = CGColorCreateCopy(self.beginColor.CGColor);
+    CGColorRef beginColor = CGColorCreateCopy(self.startColor.CGColor);
     CGColorRef endColor = CGColorCreateCopy(self.endColor.CGColor);
     
     // 创建颜色数组
     CFArrayRef colorArray = CFArrayCreate(kCFAllocatorDefault, (const void*[]){beginColor, endColor}, 2, nil);
     // 创建渐变对象
     CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpaceRef, colorArray, (CGFloat[]){
-        0.0f,	   // 对应起点颜色位置
-        1.0f		// 对应终点颜色位置
+        self.beginPercent, // 对应起点颜色位置
+        self.endPercent  // 对应终点颜色位置
     });
     
     // 释放颜色数组
@@ -158,55 +219,13 @@
     // 释放色彩空间
     CGColorSpaceRelease(colorSpaceRef);
     
-    CGPoint startPoint = {0, 0};
-    CGPoint endPoint = {0, 0};
+    CGPoint center = _colorCenter;
+    CGFloat radius = _radius;
     
-    if (DMGraduallyLeft == self.direction)
-    {
-        startPoint = (CGPoint){0, 0};
-        endPoint = (CGPoint){rect.size.width, 0};
-    }
-    else if (DMGraduallyRight == self.direction)
-    {
-        startPoint = (CGPoint){rect.size.width, 0};
-        endPoint = (CGPoint){0, 0};
-    }
-    else if (DMGraduallyTop == self.direction)
-    {
-        startPoint = (CGPoint){0, 0};
-        endPoint = (CGPoint){0, rect.size.height};
-    }
-    else if (DMGraduallyBottom == self.direction)
-    {
-        startPoint = (CGPoint){0, rect.size.height};
-        endPoint = (CGPoint){0, 0};
-    }
-    else if (DMGraduallyCustom == self.direction)
-    {
-        startPoint = self.beginPoint;
-        endPoint = self.endPoint;
-    }
-    
-    CGContextDrawLinearGradient(context, gradientRef, startPoint, endPoint, 0);
+    CGContextDrawRadialGradient(context, gradientRef, center, 0, center, radius, 0);
     
     // 释放渐变对象
     CGGradientRelease(gradientRef);
-}
-
-/// 生成图片
-- (nonnull UIImage *)generateImage
-{
-    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 1);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGRect rect = {0, 0, self.frame.size};
-    [self drawWithRect:rect withContextRef:context];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return image;
 }
 
 @end

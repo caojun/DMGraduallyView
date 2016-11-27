@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85B75BC61DEA9469000CCCE0 /* DMCircleGraduallyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85B75BC51DEA9469000CCCE0 /* DMCircleGraduallyView.m */; };
 		85D1B4DB1B368DF400CB184A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D1B4DA1B368DF400CB184A /* main.m */; };
 		85D1B4DE1B368DF400CB184A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D1B4DD1B368DF400CB184A /* AppDelegate.m */; };
 		85D1B4E11B368DF400CB184A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D1B4E01B368DF400CB184A /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		85B75BC41DEA9469000CCCE0 /* DMCircleGraduallyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMCircleGraduallyView.h; sourceTree = "<group>"; };
+		85B75BC51DEA9469000CCCE0 /* DMCircleGraduallyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMCircleGraduallyView.m; sourceTree = "<group>"; };
 		85D1B4D51B368DF400CB184A /* DMGraduallyViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMGraduallyViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D1B4D91B368DF400CB184A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85D1B4DA1B368DF400CB184A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 		85D1B4FE1B368DFF00CB184A /* DMGraduallyView */ = {
 			isa = PBXGroup;
 			children = (
+				85B75BC41DEA9469000CCCE0 /* DMCircleGraduallyView.h */,
+				85B75BC51DEA9469000CCCE0 /* DMCircleGraduallyView.m */,
 				85D1B4FF1B368DFF00CB184A /* DMGraduallyView.h */,
 				85D1B5001B368DFF00CB184A /* DMGraduallyView.m */,
 			);
@@ -236,6 +241,7 @@
 				85D1B4E11B368DF400CB184A /* ViewController.m in Sources */,
 				85D1B5011B368DFF00CB184A /* DMGraduallyView.m in Sources */,
 				85D1B4DE1B368DF400CB184A /* AppDelegate.m in Sources */,
+				85B75BC61DEA9469000CCCE0 /* DMCircleGraduallyView.m in Sources */,
 				85D1B4DB1B368DF400CB184A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

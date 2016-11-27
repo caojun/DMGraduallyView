@@ -8,17 +8,20 @@
 
 #import "ViewController.h"
 #import "DMGraduallyView.h"
+#import "DMCircleGraduallyView.h"
 
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet DMGraduallyView *m_graduallyView;
+@property (weak, nonatomic) IBOutlet DMCircleGraduallyView *m_circleView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *m_imageView;
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
@@ -33,6 +36,8 @@
     self.m_graduallyView.endPoint = CGPointMake(width, 0);
     
     self.m_imageView.image = [self.m_graduallyView generateImage];
+    
+    [self.m_circleView setBeginColor:[UIColor redColor] endColor:[UIColor whiteColor] beginPercent:0 endPercent:0.3];
 }
 
 

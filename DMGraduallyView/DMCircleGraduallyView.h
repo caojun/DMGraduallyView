@@ -26,38 +26,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, DMGraduallyDirection)
-{
-    DMGraduallyLeft = 0,
-    DMGraduallyRight,
-    DMGraduallyTop,
-    DMGraduallyBottom,
-    DMGraduallyCustom,
-    
-    DMGraduallyMax
-};
+@interface DMCircleGraduallyView : UIView
 
-/**
- *  渐变颜色view
- */
-@interface DMGraduallyView : UIView
-
-@property (nonatomic, assign) DMGraduallyDirection direction;
 @property (nullable, nonatomic, strong) UIColor *beginColor;
 @property (nullable, nonatomic, strong) UIColor *endColor;
+@property (nonatomic, assign) CGFloat beginPercent;
+@property (nonatomic, assign) CGFloat endPercent;
+@property (nonatomic, assign) CGPoint colorCenter;
+@property (nonatomic, assign) CGFloat radius;
 
-/**
- *  用于自定义
- */
-@property (nonatomic, assign) CGPoint beginPoint;
-@property (nonatomic, assign) CGPoint endPoint;
+- (void)setBeginColor:(UIColor * _Nullable)beginColor
+             endColor:(UIColor * _Nullable)endColor
+         beginPercent:(CGFloat)beginPercent
+           endPercent:(CGFloat)endPercent
+          colorCenter:(CGPoint)colorCenter
+               radius:(CGFloat)radius;
 
-
-+ (instancetype)scrollItemGraduallyViewWithDirection:(DMGraduallyDirection)direction;
-- (instancetype)initWithDirection:(DMGraduallyDirection)direction;
-
-/// 生成图片
-- (nonnull UIImage *)generateImage;
+- (void)setBeginColor:(UIColor * _Nullable)beginColor
+             endColor:(UIColor * _Nullable)endColor
+         beginPercent:(CGFloat)beginPercent
+           endPercent:(CGFloat)endPercent;
 
 @end
 
